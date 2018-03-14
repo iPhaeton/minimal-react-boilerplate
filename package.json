@@ -1,7 +1,10 @@
 {
   "name": "minimal-react-boilerplate",
   "scripts": {
-    "build": "webpack"
+    "start": "node server",
+    "start:dev": "NODE_ENV=development npm start",
+    "start:prod": "NODE_ENV=production npm start",
+    "build": "NODE_ENV=propduction webpack"
   },
   "devDependencies": {
     "html-webpack-plugin": "^3.0.6",
