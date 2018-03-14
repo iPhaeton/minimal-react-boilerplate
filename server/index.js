@@ -1,6 +1,6 @@
 const path = require('path');
 const express = require('express');
-const webpackConfig = require('../webpack.config');
+const webpackConfig = require('../webpack');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
@@ -10,7 +10,7 @@ const app = express();
 const indexPath = path.join(__dirname, '/../dist/index.html');
 const staticPath = path.join(__dirname, '/../dist');
 
-if (process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development') {
     app.use(webpackDevMiddleware(compiler, {publicPath: webpackConfig.output.publicPath}));
     app.use(webpackHotMiddleware(compiler));
 }

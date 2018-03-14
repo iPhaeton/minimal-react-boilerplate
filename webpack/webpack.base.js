@@ -1,9 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = {
-    mode: 'development',
-    entry: path.resolve(process.cwd(), 'app/app.tsx'),
+module.exports = (options) => ({
+    mode: options.mode || 'production',
+    entry: [
+        path.resolve(process.cwd(), 'app/app.tsx')
+    ].concat(options.entry || []),
     module: {
         rules: [
             {
@@ -21,5 +23,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(process.cwd(), 'app/index.html'),
         }),
-    ]
-};
+    ].concat(options.plugins || []),
+    devtool: options.devtool,
+});
