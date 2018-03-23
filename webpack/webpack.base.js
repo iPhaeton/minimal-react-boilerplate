@@ -15,6 +15,10 @@ module.exports = (options) => ({
             }
         ]
     },
+    resolve: {
+        modules: ['app', 'node_modules'],
+        extensions: [ '.tsx', '.ts', ".jsx", ".js" ]
+    },
     output: {
         path: path.resolve(process.cwd(), 'dist'),
         filename: 'app.bundle.js'
