@@ -4,7 +4,12 @@ interface ILoadableState {
     Component: new () => React.Component<any, any>;
 }
 
-export default (loader: () => Promise<any>) => {
+interface ILoaded {
+    component: Promise<any>;
+    reducers?: Promise<any>[];
+}
+
+export default (loader: () => ILoaded) => {
     return class Loadable extends React.Component<any, ILoadableState> {
         constructor(props: any) {
             super(props);
@@ -12,8 +17,10 @@ export default (loader: () => Promise<any>) => {
         }
 
         async componentWillMount() {
-            const module = await loader();
-            this.setState({Component: module.default});
+            const {component, reducers} = loader();
+            const componentModule = await component;
+
+            this.setState({Component: componentModule.default});
         }
 
         render() {

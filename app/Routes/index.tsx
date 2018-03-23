@@ -8,7 +8,9 @@ export default () => {
     return (
         <div>
             <Route exact path="/" component={Home}/>
-            <Route exact path="/about" component={injectRoute(() => import('components/About'))}/>
+            <Route exact path="/about" component={injectRoute(() => ({
+                component: import('components/About'),
+            }))}/>
         </div>
     );
 }
