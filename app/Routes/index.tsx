@@ -10,6 +10,12 @@ export default () => {
             <Route exact path="/" component={Home}/>
             <Route exact path="/about" component={injectRoute(() => ({
                 component: import('components/About'),
+                reducers: {
+                    about: import('components/About/reducer'),
+                },
+                sagas: [
+                    import('components/About/sagas'),
+                ]
             }))}/>
         </div>
     );

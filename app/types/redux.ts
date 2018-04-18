@@ -7,4 +7,5 @@ export interface IAsyncReducers {
 
 export interface IStore extends Store<IState> {
     asyncReducers: IAsyncReducers;
+    runSaga?: (saga: any)=>void; //todo: get rid of any
 }
