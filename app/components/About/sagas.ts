@@ -1,5 +1,6 @@
-import {all} from "redux-saga/effects";
+import {put} from "redux-saga/effects";
+import {increaseCount} from "./actions";
 
 export default function* root() {
-    console.log('About saga');
+    yield put(increaseCount());
 }

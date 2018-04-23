@@ -1,0 +1,1 @@
+export const INCREASE_COUNT = 'app/components/About/INCREASE_COUNT';
