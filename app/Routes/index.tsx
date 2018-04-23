@@ -7,7 +7,12 @@ import injectRoute from './injectRoute';
 export default () => {
     return (
         <div>
-            <Route exact path="/" component={Home}/>
+            <Route exact path="/" component={injectRoute(() => ({
+                component: import('components/Home'),
+                sagas: [
+                    import('components/Home/sagas'),
+                ]
+            }))}/>
             <Route exact path="/about" component={injectRoute(() => ({
                 component: import('components/About'),
                 reducers: {

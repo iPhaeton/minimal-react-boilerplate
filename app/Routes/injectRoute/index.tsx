@@ -29,14 +29,18 @@ export default (loader: () => ILoaded) => {
             const {component, reducers, sagas} = loader();
             const componentModule = await component;
 
-            const reducerNames = Object.keys(reducers);
-            const reducerModules = await Promise.all(reducerNames.map(n => reducers[n]));
+            if (reducers) {
+                const reducerNames = Object.keys(reducers);
+                const reducerModules = await Promise.all(reducerNames.map(n => reducers[n]));
+                injectReducers(this.context.store, reducerModules.reduce((modules, m, i) => ({...modules, [reducerNames[i]]: m.default}), {}))
+            }
 
-            const sagaModules = await Promise.all(sagas);
+            if (sagas) {
+                const sagaModules = await Promise.all(sagas);
+                sagaModules.map(s => this.context.store.runSaga(s.default));
+            }
 
-            sagaModules.map(s => this.context.store.runSaga(s.default));
             this.setState({Component: componentModule.default});
-            injectReducers(this.context.store, reducerModules.reduce((modules, m, i) => ({...modules, [reducerNames[i]]: m.default}), {}))
         }
 
         render() {
