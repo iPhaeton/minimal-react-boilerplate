@@ -5,12 +5,14 @@ const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 const compiler = webpack(webpackConfig);
+const history = require('connect-history-api-fallback');
 
 const app = express();
 const indexPath = path.join(__dirname, '/../dist/index.html');
 const staticPath = path.join(__dirname, '/../dist');
 
 if (process.env.NODE_ENV === 'development') {
+    app.use(history());
     app.use(webpackDevMiddleware(compiler, {publicPath: webpackConfig.output.publicPath}));
     app.use(webpackHotMiddleware(compiler));
 }
